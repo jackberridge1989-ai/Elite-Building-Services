@@ -302,6 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupSmoothAnchors();
     setupPortals();
     setupPhotoGuidance();
+    setupImageFallbacks();
     setupScrollReveals();
     setupProjectModal();
     setupTeamModal();
@@ -999,6 +1000,25 @@ function setupPhotoGuidance() {
 
         select.addEventListener("change", update);
         update();
+    });
+}
+
+function setupImageFallbacks() {
+    const markFailed = (image) => {
+        image.classList.add("image-load-failed");
+        image.setAttribute("data-image-state", "failed");
+    };
+
+    document.addEventListener("error", (event) => {
+        if (event.target instanceof HTMLImageElement) {
+            markFailed(event.target);
+        }
+    }, true);
+
+    document.querySelectorAll("img").forEach((image) => {
+        if (image.complete && image.naturalWidth === 0) {
+            markFailed(image);
+        }
     });
 }
 

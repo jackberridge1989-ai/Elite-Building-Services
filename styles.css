@@ -66,6 +66,12 @@ img {
     height: auto;
 }
 
+img.image-load-failed {
+    background: var(--stone);
+    border: 1px solid rgba(7, 22, 55, 0.12);
+    object-fit: contain;
+}
+
 a {
     color: inherit;
     text-decoration: none;
